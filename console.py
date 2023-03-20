@@ -117,7 +117,8 @@ class HBNBCommand(cmd.Cmd):
         """ Command to create an object of a Class"""
 
         if not args:
-            raise TypeError()
+            print("** class name missing **")
+            return
         all_data = args.split()
         print(all_data)
         class_name = all_data[0]
@@ -132,8 +133,8 @@ class HBNBCommand(cmd.Cmd):
             child = item.split("=")
             if child[1][0] == '"':
                 child[1] = child[1].replace('\\"', '"')
-                child[1] = child[1].strip('"')
                 child[1] = child[1].replace("_", " ")
+                child[1] = child[1].strip('"')
                 setattr(new_class, child[0], child[1])
 
             elif '.' in child[1] and child[1].replace('.', '').isnumeric():
