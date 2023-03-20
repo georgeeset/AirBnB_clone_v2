@@ -131,11 +131,12 @@ class HBNBCommand(cmd.Cmd):
             # child[0] becomes the property name
             child = item.split("=")
             if child[1][0] == '"':
+                child[1] = child[1].replace('\\"', '"')
                 child[1] = child[1].strip('"')
                 child[1] = child[1].replace("_", " ")
                 setattr(new_class, child[0], child[1])
 
-            elif '.' in child[1] and child[1].replace('.', '',1).isnumeric():
+            elif '.' in child[1] and child[1].replace('.', '').isnumeric():
                 setattr(new_class, child[0], float(child[1]))
 
             elif(child[1].isnumeric()):
