@@ -116,39 +116,36 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """ Command to create an object of a Class"""
 
-        try:
-            if not args:
-                raise TypeError()
-            all_data = args.split()
-            print(all_data)
-            class_name = all_data[0]
-            command = ""
-            new_class = eval("{}()".format(class_name))
-            # brake down the rest items in the all_data list
-            for item in all_data[1:]:
-                # child[0] becomes the property name
-                child = item.split("=")
-                if child[1][0] == '"':
-                    child[1] = child[1].strip('"')
-                    child[1] = child[1].replace("_", " ")
-                    setattr(new_class, child[0], child[1])
+        if not args:
+            raise TypeError()
+        all_data = args.split()
+        print(all_data)
+        class_name = all_data[0]
+        command = ""
+        if(class_name not in HBNBCommand.classes):
+            print("** class doesn't exist **")
+            return
+        new_class = HBNBCommand.classes[class_name]()
+        # brake down the rest items in the all_data list
+        for item in all_data[1:]:
+            # child[0] becomes the property name
+            child = item.split("=")
+            if child[1][0] == '"':
+                child[1] = child[1].strip('"')
+                child[1] = child[1].replace("_", " ")
+                setattr(new_class, child[0], child[1])
 
-                elif '.' in child[1] and child[1].replace('.', '',1).isdigit():
-                    setattr(new_class, child[0], float(child[1]))
+            elif '.' in child[1] and child[1].replace('.', '',1).isdigit():
+                setattr(new_class, child[0], float(child[1]))
 
-                elif(child[1].isnumeric()):
-                    setattr(new_class, child[0], int(child[1]))
+            elif(child[1].isnumeric()):
+                setattr(new_class, child[0], int(child[1]))
 
-                else:
-                    pass
+            else:
+                pass
 
-            new_class.save()
-            print(new_class.id)
-
-        except TypeError:
-            print("** class name missing **")
-        except ValueError:
-            print("** class doesn't exist")
+        new_class.save()
+        print(new_class.id)
 
     def help_create(self):
         """ Help information for the create method """
