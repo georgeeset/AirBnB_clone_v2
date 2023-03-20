@@ -73,8 +73,8 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is'}'\
-                            and type(eval(pline)) is dict:
+                    if pline[0] is '{' and pline[-1] is '}' and type(
+                            eval(pline)) is dict:
                         _args = pline
                     else:
                         _args = pline.replace(',', '')
@@ -130,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
                 child = item.split("=")
                 child[1] = child[1].strip('"')
                 child[1] = child[1].replace("_", " ")
-                setattr(new_class,child[0], child[1])
+                setattr(new_class, child[0], child[1])
             new_class.save()
             print(new_class.id)
 
@@ -138,8 +138,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         except ValueError:
             print("** class doesn't exist")
-        except:
-            print ("unknown error")
 
     def help_create(self):
         """ Help information for the create method """
@@ -202,7 +200,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -334,6 +332,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
