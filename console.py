@@ -132,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
             child = item.split("=")
             if child[1][0] == '"':
                 child[1] = child[1].strip('"')
-                child[1] = child[1].replace('"', '\"')
+                child[1] = child[1].replace('\\"', '"')
                 child[1] = child[1].replace("_", " ")
                 setattr(new_class, child[0], child[1])
 
