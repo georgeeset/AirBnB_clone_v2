@@ -120,7 +120,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         all_data = args.split()
-        print(all_data)
         class_name = all_data[0]
         command = ""
         if(class_name not in HBNBCommand.classes):
