@@ -33,14 +33,14 @@ class HBNBCommand(cmd.Cmd):
     def preloop(self):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
-            print('(hbnb)')
+            print('(hbnb)', end="")
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
 
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
-        
+        """
         _cmd = _cls = _id = _args = ''  # initialize line elements
 
         # scan for general formating - i.e '.', '(', ')'
@@ -84,8 +84,7 @@ class HBNBCommand(cmd.Cmd):
         except Exception as mess:
             pass
         finally:
-            return line"""
-        return line
+            return line
 
     def postcmd(self, stop, line):
         """Prints if isatty is false"""
@@ -132,9 +131,9 @@ class HBNBCommand(cmd.Cmd):
             # child[0] becomes the property name
             child = item.split("=")
             if child[1][0] == '"':
-                child[1] = child[1].replace('\\"', '"')
-                child[1] = child[1].replace("_", " ")
                 child[1] = child[1].strip('"')
+                child[1] = child[1].replace('"', '\"')
+                child[1] = child[1].replace("_", " ")
                 setattr(new_class, child[0], child[1])
 
             elif '.' in child[1] and child[1].replace('.', '').isnumeric():
