@@ -131,7 +131,6 @@ class HBNBCommand(cmd.Cmd):
             child = item.split("=")
             if child[1][0] == '\"':
                 sliced  = child[1][1:-1]
-                sliced = sliced.replace('"', '\\"')
                 sliced = sliced.replace("_", " ")
                 print(sliced)
                 setattr(new_class, child[0], sliced)
@@ -219,17 +218,16 @@ class HBNBCommand(cmd.Cmd):
         print("Destroys an individual instance of a class")
         print("[Usage]: destroy <className> <objectId>\n")
 
-    def do_all(self, args):
-        """ Shows all objects, or all objects of a class"""
+    def do_all(self, cls=None):
+        """ REturns the list of objects of one type of class."""
         print_list = []
 
-        if args:
-            args = args.split(' ')[0]  # remove possible trailing args
+        if cls:
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
             for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
+                if k.split('.')[0] == cls.__name:
                     print_list.append("{}".format(v))
         else:
             for k, v in storage._FileStorage__objects.items():
