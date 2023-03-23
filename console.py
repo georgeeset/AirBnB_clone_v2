@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
     def preloop(self):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
-            print('(hbnb)', end="")
+            print('(hbnb)')
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
@@ -85,6 +85,7 @@ class HBNBCommand(cmd.Cmd):
             pass
         finally:
             return line
+        return line
 
     def postcmd(self, stop, line):
         """Prints if isatty is false"""
@@ -121,6 +122,7 @@ class HBNBCommand(cmd.Cmd):
             return
         all_data = args.split()
         class_name = all_data[0]
+        command = ""
         if(class_name not in HBNBCommand.classes):
             print("** class doesn't exist **")
             return
@@ -129,17 +131,17 @@ class HBNBCommand(cmd.Cmd):
         for item in all_data[1:]:
             # child[0] becomes the property name
             child = item.split("=")
-            if child[1][0] == '\"':
-                sliced  = child[1][1:-1]
-                sliced = sliced.replace('"', '\\"')
-                sliced = sliced.replace("_", " ")
-                print(sliced)
-                setattr(new_class, child[0], sliced)
+            if child[1].startwith('"'):
+                child[1] = child[1].strip('"')
+                child[1] = child[1].replace('"', '\\"')
+                child[1] = child[1].replace("_", " ")
+
+                setattr(new_class, child[0], child[1])
 
             elif '.' in child[1] and child[1].replace('.', '').isnumeric():
                 setattr(new_class, child[0], float(child[1]))
 
-            elif (child[1].isnumeric()):
+            elif(child[1].isnumeric()):
                 setattr(new_class, child[0], int(child[1]))
 
             else:
@@ -230,10 +232,10 @@ class HBNBCommand(cmd.Cmd):
                 return
             for k, v in storage._FileStorage__objects.items():
                 if k.split('.')[0] == args:
-                    print_list.append("{}".format(v))
+                    print_list.append(str(v))
         else:
             for k, v in storage._FileStorage__objects.items():
-                print_list.append("{}".format(v))
+                print_list.append(str(v))
 
         print(print_list)
 
