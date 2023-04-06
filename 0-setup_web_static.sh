@@ -10,7 +10,15 @@ sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared/
 
 # Create a fake HTML file /data/web_static/releases/test/index.html
-sudo echo "Hello ALX SE" > /data/web_static/releases/test/index.html
+sudo echo \
+     "
+<html>
+  <head>
+  </head>
+  <body>
+    Hello ALX SE
+  </body>
+</html>" > /data/web_static/releases/test/index.html
 
 # Create a symbolic link /data/web_static/current
 # linked to the /data/web_static/releases/test/ folder.
