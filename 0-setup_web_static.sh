@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # install Nginx if not already installed
 sudo apt-get -y update
 sudo apt-get -y install nginx
 
 # Create the folder /data/web_static/releases/test/ if it doesn't exist
-sudo mkdir -p /data/web_static/releases/test
+sudo mkdir -p /data/web_static/releases/test/
 
 # Create the folder /data/web_static/shared/ if it doesn’t already exist
 sudo mkdir -p /data/web_static/shared/
@@ -33,4 +33,5 @@ sudo chown --recursive ubuntu:ubuntu /data
 sudo sed -i "/listen 80 default_server;/a location /hbnb_static {alias /data/web_static/current/;}" /etc/nginx/sites-available/default
 
 # apply last setings and restart nginx
+sudo ufw allow 'Nginx HTTP'
 sudo service nginx restart
