@@ -9,16 +9,16 @@ sudo mkdir -p /data/web_static/releases/test
 # Create the folder /data/web_static/shared/ if it doesn’t already exist
 sudo mkdir -p /data/web_static/shared/
 
-# give ownership to user and group
-sudo chown --recursive ubuntu:ubuntu /data
 # Create a fake HTML file /data/web_static/releases/test/index.html
-
 sudo echo "Hello ALX SE" > /data/web_static/releases/test/index.html
 
 # Create a symbolic link /data/web_static/current
 # linked to the /data/web_static/releases/test/ folder.
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 
+
+# give ownership to user and group
+sudo chown --recursive ubuntu:ubuntu /data
 
 # Update the Nginx configuration to serve the content of
 # /data/web_static/current/ to hbnb_static
