@@ -10,7 +10,7 @@ sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 
 # Create a fake HTML file /data/web_static/releases/test/index.html
-sudo echo \
+echo \
      "
 <html>
   <head>
