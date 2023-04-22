@@ -1,11 +1,11 @@
-!/usr/bin/python3
+#!/usr/bin/python3
+
 """
  A Fabric script (based on the file 1-pack_web_static.py)
   that distributes an archive to your web servers
 """
 import os
 from fabric.api import env, run, put
-
 
 
 def do_deploy(archive_path):
@@ -36,18 +36,22 @@ def do_deploy(archive_path):
 
     return True
 
+
 def do_pack():
     """ pack files """
     if not os.path.isdir("./versions"):
         os.makedirs("./versions")
     created_at = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    local("tar -czzf versions/web_static_{}.tgz web_static/*".format(crated_at))
+    local("tar -czzf versions/web_static_{}.tgz web_static/*".format(
+        crated_at
+    ))
     return ("{}/versions/web_static_{}.tgz".format(os.path.dirname(
         os.path.abspath(__file__)), created_at))
+
 
 def deploy():
     """ package && deploy to servers """
     path = do_pack()
     if path is None:
         return False
-    return(do_deploy(path))
+    return (do_deploy(path))
