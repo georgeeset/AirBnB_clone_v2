@@ -32,7 +32,7 @@ def do_pack():
 def do_deploy(archive_path):
     """ deploy package to server """
 
-    print ("deploying")
+    print("deploying")
     env.hosts = ["34.227.94.41", "100.24.205.173"]
     env.user = "ubuntu"
 
