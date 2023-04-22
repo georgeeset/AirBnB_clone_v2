@@ -56,6 +56,8 @@ def do_deploy(archive_path):
     run("mv /data/web_static/current/web_static/* /data/web_static/current/")
     run("rm -rf /data/web_static/current/web_static")
 
+    print("deployed successful")
+
     return True
 
 
